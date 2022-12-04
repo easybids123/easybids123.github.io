@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Login</title>
+		<style>
+			body {
+				font-family: Arial;
+				font-size: 12px;
+			}
+			td {
+				padding: 10px;
+			}
+			input {
+				padding: 7px;
+				border: 1px solid #C0C0C0;
+				border-radius: 5px;
+				width: 250px;
+			}
+			input:focus {
+				border: 1px solid #6666FF;
+				-moz-transition: box-shadow 0.30s ease-in-out;
+				transition: box-shadow 0.30s ease-in-out;
+				box-shadow: 0 0 1px rgba(9, 97, 241, 0.7);
+			}
+			button {
+				width: 100px;
+				padding: 8px 15px;
+				border: 1px solid #C0C0C0;
+				border-radius: 5px;
+				color: white;
+				font-weight: bold;
+				background-color: #0000bb;
+				cursor: pointer;
+			}
+			
+			a {
+				color: blue;
+			}
+			
+			a:hover {
+				color: darkred;
+			}
+		</style>
+		<script>
+			function login() {
+				var contextPath = '';
+				window.location = contextPath + 'home.html';
+			}
+		</script>
+	</head>
+	<body>
+		<center>
+			<br/><br/><br/>
+			<h2>EasyBids | Reliance Industries Pvt Ltd</h2>
+			<table>
+				<tr>
+					<td>Login Id</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button onclick="login();">Login</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Forgot Password</a><br/><br/><br/><a href="">Create Your Account</a></td>
+				</tr>
+			</table>
+		</center>
+	</body>
+</html>

@@ -1,0 +1,139 @@
+body {
+	margin: 0px;
+	font-family: Arial;
+	font-size: 14px;
+	background-color: #fafafa;
+}
+
+.main-section {
+	padding: 15px;
+}
+
+.nav-section {
+	font-size: 18px;
+	color: white;
+	background-color: #0447A9;
+	padding: 15px;
+}
+
+.nav-link {
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 3px;
+}
+
+.nav-link-sel, .nav-link:hover {
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 3px;
+}
+
+.container {
+  box-shadow: 0px 0px 8px 0px rgba(43,59,93,0.4);
+  
+  display: inline-block;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: box-shadow 300ms linear;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.container-w100 {
+	width: 100%;
+}
+
+.container-w33 {
+	width: 100%;
+	text-align: left;
+}
+
+.widget-title {
+	font-size: 1.2rem;
+	color: darkblue;
+}
+
+.widget-circle-graph-data {
+ // margin: 0px auto;
+ // display: inline-block;
+  text-align: center;
+  line-height: 65px;
+  width: 65px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 100px;
+  border: 6px solid #09c4d3;
+  transition: transform 0.4s linear;
+}
+
+
+.widget-circle-graph-container {
+ // transition: background-color 5s linear;
+ display:inline-grid;
+  margin: 10px;
+}
+
+.widget-circle-graph-data:hover{
+	transform: rotate(360deg);
+}
+/*.widget-circle-text {
+
+    width: 100%;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-top: 4px;
+    text-align: center;
+
+}*/
+
+.green-btn {
+	background-color: darkgreen;
+	color: white;
+	padding: 5px; 
+	font-size: 14px;
+	text-decoration: none;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+.blue-btn {
+	background-color: darkblue;
+	color: white;
+	padding: 5px; 
+	font-size: 14px;
+	text-decoration: none;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+.green-btn:hover .blue-btn:hover {
+	color: lightgray;
+}
+
+input {
+	width: 400px;
+}
+
+input:focus {
+	border: 1px solid #6666FF;
+	-moz-transition: box-shadow 0.30s ease-in-out;
+	transition: box-shadow 0.30s ease-in-out;
+	box-shadow: 0 0 1px rgba(9, 97, 241, 0.7);
+}
+
+table {
+	border-collapse: collapse;
+}
+table th, table td {
+	padding: 7px;
+//	border-bottom: 1px solid lightgray;
+}
+
+table tr:hover {
+	background-color: #f4f4f4;
+}

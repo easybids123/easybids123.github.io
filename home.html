@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="nav-section">
+			<b>EasyBids</b> > 
+			<a href="" class="nav-link-sel">Home</a> |
+			<a href="manage-tenders.html" class="nav-link">Manage Tenders</a> |
+			<a href="" class="nav-link">Administration</a> |
+			<div style="float:right">Welcome Powercom | <a href="" class="nav-link">Profile</a> | <a href="index.html" class="nav-link">Logout</a></div>
+		</div>
+		<div id="home-main" class="main-section">
+			<div class="container container-w100">
+				<div class="widget-title">Bids Summary</div>
+				<span id="widget-inner"></span>
+				<br/>Filter: 
+				<select>
+					<option>My Bids</option>
+					<option>Active Bids</option>
+					<option>All Bids</option>
+					<option>Closed Bids</option>
+				</select>
+				Search: <input type="text" placeholder="Search...">
+			</div>
+			<span id="bids-inner"></span>
+		</div>
+		<div id="home-bid" class="main-section" style="display: none;">
+			
+		</div>
+		<div id="view-bid" class="main-section" style="display: none;">
+			
+		</div>
+		<script>
+			function viewTender(i) {
+				var item = tenderItems[i];
+				var html = `
+				<div class="container container-w33">
+				<div style="color: blue; font-size: 14px; font-weight: bold;">${item.tenderId}: ${item.title}</div>
+					 <table>
+						<tr><td>Tender Type: </td><td><b>${item.tenderType}</b></td></tr>
+						<tr><td>Tender Category: </td><td><b>${item.tenderCat}</b></td></tr>
+						<tr><td>Allow Two Stage Bidding: </td><td><b>${item.twoStageBid}</b></td></tr>
+						<tr><td>General Technical Evaluation Allowed: </td><td><b>${item.techEvalAllowed}</b></td></tr>
+					</table><br/>
+					<a href="${item.tenderId}.zip">Download Documents as ZIP</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="green-btn" onclick="javascript:initiateBid(${i});">Bid Now</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="javascript:fromViewTenderToHome();">Back</button><br/><br/><br/>
+					`;
+				html += `<table>
+						<caption style="background-color: lightblue; padding: 5px;"><b>Work Items</b></caption>
+						<tr><th>Product Category</th><th>Document</th><th>Document Size (in KB)</th></tr>
+					`;
+				for(var i = 0; i < item.workItems.length; i++) {
+					html += `<tr><td>${item.workItems[i].productCat}</td><td>${item.workItems[i].docName}</td><td>${item.workItems[i].docSize}</td></tr>`;
+				}
+				html += `</table><br/><br/><br/>`;
+				html += `	
+					<table>
+						<caption style="background-color: lightblue; padding: 5px;"><b>Dates</b></caption>
+						<tr><td>Published Date</td><td><b>${item.dates.publishDate}</b></td><td>Bid Opening Date</td><td><b>${item.dates.bidOpenDate}</b></td></tr>
+						<tr><td>Document Download / Sale Start Date</td><td><b>${item.dates.saleStartDate}</b></td><td>Document Download / Sale End Date</td><td><b>${item.dates.saleEndDate}</b></td></tr>
+						<tr><td>Clarification Start Date</td><td><b>${item.dates.clarStartDate}</b></td><td>Clarification End Date</td><td><b>${item.dates.clarEndDate}</b></td></tr>
+						<tr><td>Bid Submission Start Date</td><td><b>${item.dates.bidSubStartDate}</b></td><td>Bid Submission End Date</td><td><b>${item.dates.bidSubEndDate}</b></td></tr>
+					</table>
+				</div>
+			</div>
+				`;
+				document.getElementById('view-bid').innerHTML = html;
+				document.getElementById('home-main').style.display = 'none';
+				document.getElementById('view-bid').style.display = 'block';
+			}
+			
+			function initiateBid(i) {
+				var item = tenderItems[i];
+				var html = `
+					<div class="container container-w33">
+					<div style="color: blue; font-size: 14px; font-weight: bold;">${item.tenderId}: ${item.title}</div>
+						<table>
+							<tr><td>Tender Type: </td><td><b>${item.tenderType}</b></td></tr>
+							<tr><td>Tender Category: </td><td><b>${item.tenderCat}</b></td></tr>
+							<tr><td>Allow Two Stage Bidding: </td><td><b>${item.twoStageBid}</b></td></tr>
+							<tr><td>General Technical Evaluation Allowed: </td><td><b>${item.techEvalAllowed}</b></td></tr>
+						</table><br/>
+						<a href="${item.tenderId}.zip">Download Documents as ZIP</a>
+						
+						<div style="background-color: lightgray; padding: 10px; margin: 10px;">Bid Start Time: <b>02-Dec-2022, 9:00:00 AM</b> Bid End Time: <b>05-Dec-2022, 9:00:00 PM</b></div>
+						
+						Amount: <span style="color: white; background-color: darkblue; padding: 5px; font-size: 14px; font-weight: bold;">Rs. 10,20,000</span> 
+						Top Bid: <span style="color: white; background-color: darkred; padding: 5px; font-size: 14px; font-weight: bold;">Rs. 9,00,000</span> 
+						Your Amount: <input id="bid-amount" type="number" value="890000"> <button class="primary-btn" onclick="javascript:doBid();">Bid Now</button>
+						<button onclick="javascript:fromBidToHome();">Back</button>
+						<br/><br/>
+						<table id="bids-table" style="float: left;" width="80%">
+							<tr id="bids-table-header">
+								<th>Time</th><th>Bidder</th><th>Amount</th>
+							</tr>
+							<tr>
+								<td>03-Dec-2022, 05:355:52 PM</td><td>xxxxx xxxx</td><td>9,00, 000</td>
+							</tr>
+							<tr>
+								<td>03-Dec-2022, 12:35:37 PM</td><td>xxxxx xxxx</td><td>9,30, 000</td>
+							</tr>
+							<tr>
+								<td>02-Dec-2022, 11:32:25 AM</td><td>xxxxx xxxx</td><td>9,70, 000</td>
+							</tr>
+							<tr>
+								<td>02-Dec-2022, 10:05:05 AM</td><td>xxxxx xxxx</td><td>10,00, 000</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				`;
+				document.getElementById('home-bid').innerHTML = html;
+				document.getElementById('home-main').style.display = 'none';
+				document.getElementById('view-bid').style.display = 'none';
+				document.getElementById('home-bid').style.display = 'block';
+			}
+			
+			function doBid() {
+				var time = new Date().toLocaleString();
+				var amount = document.getElementById('bid-amount').value;
+				var html = `
+					<tr>
+						<td>${time}</td><td>User1</td><td>${amount}</td>
+					</tr>
+				`;
+				document.getElementById('bids-table-header').insertAdjacentHTML('afterend', html);
+				alert('Your bid was successful');
+			}
+			
+			
+			function fromBidToHome() {
+				document.getElementById('home-main').style.display = 'block';
+				document.getElementById('home-bid').style.display = 'none';
+			}
+			
+			function fromViewTenderToHome() {
+				document.getElementById('home-main').style.display = 'block';
+				document.getElementById('view-bid').style.display = 'none';
+				document.getElementById('home-bid').style.display = 'none';
+			}
+			
+			function addBadge(color, data, text) {
+				var html = `
+					<div class="widget-circle-graph-container">
+						<span class="widget-circle-graph-data" style="border-color: ${color}">${data}</span>
+						<div title="${text}">${text}</div>	
+					</div>
+				`;
+				document.getElementById('widget-inner').insertAdjacentHTML('beforebegin', html);
+			}
+			
+			function createTenderItem(item) {
+				var html = `
+					<div class="container container-w33" style="text-align: left">
+						<div style="color: blue; font-size: 14px; font-weight: bold;">${item.tenderId}: ${item.title}</div>
+						<table>
+							<tr><td>Tender Type: </td><td><b>${item.tenderType}</b></td></tr>
+							<tr><td>Tender Category: </td><td><b>${item.tenderCat}</b></td></tr>
+							<tr><td>Allow Two Stage Bidding: </td><td><b>${item.twoStageBid}</b></td></tr>
+							<tr><td>General Technical Evaluation Allowed: </td><td><b>${item.techEvalAllowed}</b></td></tr>
+						</table><br/>
+						<a href="${item.tenderId}.zip">Download Documents as ZIP</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="blue-btn" onclick="javascript:viewTender(${i});">View Details</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="green-btn" onclick="javascript:initiateBid(${i});">Bid Now</button>
+					</div>
+				`;
+				document.getElementById('bids-inner').insertAdjacentHTML('beforebegin', html);
+			}
+			
+			
+			addBadge('#4285f4', 70, 'Total');
+			addBadge('#34a853', '10', 'Active');
+			addBadge('#fbbc05', '20', 'Upcoming');
+			addBadge('#ea4335', '40', 'Closed');
+			
+
+			
+			var tenderItems = [
+				{
+					title: 'Transmission Tower lIne at Gokrana and Powai',
+					tenderId: '2022_AIMSM_726558_1', 
+					tenderType: 'Pan India', 
+					tenderCat: 'Goods & Services', 
+					formOfContract: 'Fixed Price', 
+					twoStageBid: 'Yes', 
+					techEvalAllowed: 'No',
+					workItems: [
+						{productCat: 'Transmission Tower lIne Gokrana', docName: 'BOQ_745363, Tender Documents', docSize: '1160.69 KB'},
+						{productCat: 'Transmission Tower lIne Powai', docName: 'BOQ_745363, Tender Documents', docSize: '1170.76 KB'}
+						
+					],
+					dates: {
+						publishDate: '30-Nov-2022 18:00', bidOpenDate: '21-Dec-2022 17:00', saleStartDate: '30-Nov-2022 18:30', saleEndDate: '20-Dec-2022 17:00', clarStartDate: '25-Dec-2022 10:30', clarEndDate: '25-Dec-2022 18:30', bidSubStartDate: '30-Nov-2022 18:00', bidSubEndDate: '21-Dec-2022 17:00'
+					}
+				},
+				{
+					title: 'Ligthting Arrestors for Hybrid DG set',
+					tenderId: '2022_AIMSM_726559_1', 
+					tenderType: 'International', 
+					tenderCat: 'Goods', 
+					formOfContract: 'Fixed Price', 
+					twoStageBid: 'Yes', 
+					techEvalAllowed: 'No',
+					workItems: [
+						{productCat: 'Transmission Tower lIne Gokrana', docName: 'BOQ_745363, Tender Documents', docSize: '1160.69 KB'},
+						{productCat: 'Transmission Tower lIne Powai', docName: 'BOQ_745363, Tender Documents', docSize: '1170.76 KB'}
+						
+					],
+					dates: {
+						publishDate: '30-Nov-2022 18:00', bidOpenDate: '21-Dec-2022 17:00', saleStartDate: '', saleEndDate: '', clarStartDate: '', clarEndDate: '', bidSubStartDate: '', bidSubEndDate: ''
+					}
+				},
+				{
+					title: 'Scada communication for Monitoring Powai',
+					tenderId: '2022_AIMSM_726560_1', 
+					tenderType: 'Pan India', 
+					tenderCat: 'Services', 
+					formOfContract: 'Fixed Price', 
+					twoStageBid: 'Yes', 
+					techEvalAllowed: 'No',
+					workItems: [
+						{productCat: 'Transmission Tower lIne Gokrana', docName: 'BOQ_745363, Tender Documents', docSize: '1160.69 KB'},
+						{productCat: 'Transmission Tower lIne Powai', docName: 'BOQ_745363, Tender Documents', docSize: '1170.76 KB'}
+						
+					],
+					dates: {
+						publishDate: '30-Nov-2022 18:00', bidOpenDate: '21-Dec-2022 17:00', saleStartDate: '', saleEndDate: '', clarStartDate: '', clarEndDate: '', bidSubStartDate: '', bidSubEndDate: ''
+					}
+				}
+			];
+			
+			
+			for(var i = 0; i < tenderItems.length; i++) {
+				createTenderItem(tenderItems[i]);
+			}
+		</script>
+	</body>
+</html>,

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="nav-section">
+			<b>EasyBids</b> > 
+			<a href="home.html" class="nav-link">Home</a> |
+			<a href="" class="nav-link-sel">Manage Tenders</a> |
+			<a href="" class="nav-link">Administration</a> |
+			<div style="float:right">Welcome Powercom | <a href="" class="nav-link">Profile</a> | <a href="index.html" class="nav-link">Logout</a></div>
+		</div>
+		<div id="tender-main" class="main-section">
+			<div class="container container-w33">
+				<button class="green-btn" onclick="createTender();">Create New</button>
+				<table>
+					<tr><th>Tender ID</th><th>Title</th><th>Type</th><th>Category</th><th>Contract</th></tr>
+					<tr><td>2022_AIMSM_726558_1</td><td>Transmission Tower lIne at Gokrana and Powai</td><td>Pan India</td><td>Goods & Services</td><td>Fixed Price</td></tr>
+					<tr><td>2022_AIMSM_726559_1</td><td>Ligthting Arrestors for Hybrid DG set</td><td>International</td><td>Goods</td><td>Fixed Price</td></tr>
+					<tr><td>2022_AIMSM_726560_1</td><td>Scada communication for Monitoring Powai</td><td>Pan India</td><td>Services</td><td>Fixed Price</td></tr>
+				</table>
+			</div>
+		</div>
+		<div id="tender-edit" class="main-section" style="display:none";>
+			<div class="container container-w33">
+				<table>
+					<tr><td>Tender Id</td><td><input type="text"></td></tr>
+					<tr><td>Tender Title</td><td><input type="text"></td></tr>
+					<tr><td>Tender Type</td><td><select><option>Pan India</option><option>Intra State</option><option>International</option></select></td></tr>
+					
+					<tr><td>Product Category</td><td><select><option>Transmission Tower Line</option><option>Ligthting Arrestors</option><option>Power and Distribution transformers</option><option>Diesel Generators</option>Fire Protection System<option>Power Electronics , Battery and Battery charger</option><option>Scada and communication</option><option>Design and Calculation</option></select></td></tr>
+					<tr><td>Form of Contract</td><td><select><option>Fixed Price</option><option>Time and Materials</option><option>Labor Hour Contracts</option><option>Indefinite Delivery Contracts</option><option>Letter Contracts</option></select></td></tr>
+					
+					<tr><td>Allow Two Stage Bidding</td><td><select><option>Yes</option><option>No</option></select></td></tr>
+					<tr><td>General Technical Evaluation Allowed</td><td><select><option>Yes</option><option>No</option></select></td></tr>
+					<tr><td>Documents Zip</td><td><input type="file"></td></tr>
+					<tr><td>Published Date</td><td><input type="datetime-local"></td></tr>
+					<tr><td>Bid Opening Date</td><td><input type="datetime-local"></td></tr>
+					<tr><td>Document Download / Sale Start Date</td><td><input type="datetime-local"></td></tr>
+					<tr><td>Document Download / Sale End Date</td><td><input type="datetime-local"></td></tr>
+					<tr><td>Clarification Start Date</td><td><input type="datetime-local"></td></tr>
+					<tr><td>Clarification End Date</td><td><input type="datetime-local"></td></tr>
+					<tr><td>Bid Submission Start Date</td><td><input type="datetime-local"></td></tr>
+					<tr><td>Bid Submission End Date</td><td><input type="datetime-local"></td></tr>
+					
+					
+					<tr><td><button class="green-btn">Save</button></td><td><button class="blue-btn" onclick="doCancel();">Cancel</button></td></tr>
+				</table>
+			</div>
+		</div>
+		<script>
+			function createTender() {
+				document.getElementById('tender-main').style.display = 'none';
+				document.getElementById('tender-edit').style.display = 'block';
+			}
+			
+			function doCancel() {
+				document.getElementById('tender-main').style.display = 'block';
+				document.getElementById('tender-edit').style.display = 'none';
+			}
+		</script>
+	</body>
+</html>,
